@@ -1,0 +1,98 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+    var activeController = ViewContext.RouteData.Values["controller"].ToString();
+
+    var currentCart = HttpContextAccessor.HttpContext?.Items["CartCount"] as int? ?? 0;
+}
+
+<!-- Header -->
+<nav class="flex items-center justify-between p-6 relative z-10" @(activeController == "Home") style="background-color: #942446;">
+    <div class="text-white font-bold text-2xl">
+        <a asp-controller="Home" asp-action="Index">ARS BOOK</a>
+    </div>
+    <ul class="flex space-x-8 text-white">
+        <li><a asp-controller="books" asp-action="Index" class="hover:underline">Books</a></li>
+        <li><a asp-controller="about" asp-action="Index" class="hover:underline">About Us</a></li>
+        <li><a asp-controller="contacts" asp-action="Index" class="hover:underline">Contacts</a></li>
+        <li><a href="#" class="hover:underline" aria-label="Search"><i class="fas fa-search"></i></a></li>
+    </ul>
+    <div class="flex items-center">
+        @{
+            if (User.Identity.Name != null)
+            {
+                <a asp-controller="books" asp-action="wishlist">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24">
+                        <path fill="white" d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z" />
+                    </svg>
+                </a>
+            }
+            else
+            {
+                <div class="cursor-pointer" onclick="showAlert()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 512 512">
+                        <path fill="white" d="M256 27.845c-21.563 0-48.67 1.224-69.041 9.357C166.589 45.336 153 58.047 153 86.845v51.847a125 125 0 0 1 19.988-1.732c3.353-.02 6.693.103 10.012.355v-38.47c0-16 11.186-28.155 24.975-35.05c13.788-6.893 30.9-9.95 48.025-9.95s34.237 3.057 48.025 9.95C317.815 70.69 329 82.846 329 98.846v38.478a124.6 124.6 0 0 1 30 1.377V86.845c0-28.798-13.589-41.51-33.959-49.643S277.563 27.845 256 27.845m-83.12 127.093a107.7 107.7 0 0 0-22.886 2.682C109.396 166.847 73 198.594 73 258.845c0 43 37.72 89.974 81.213 131.49c21.747 20.758 44.64 40.173 64.25 57.52c15.099 13.356 28.124 25.257 37.537 36.3c9.413-11.043 22.438-22.944 37.537-36.3c19.61-17.347 42.503-36.762 64.25-57.52C401.28 348.819 439 301.845 439 258.845c0-60.25-36.396-91.998-76.994-101.225s-83.648 5.56-97.65 40.567L256 219.075l-8.355-20.888c-11.377-28.443-41.931-43.537-74.764-43.249zM256 234.845a44.49 44.49 0 0 1 44.488 44.488A44.49 44.49 0 0 1 284 313.876l16.488 98.922h-88.976l16.49-98.936a44.49 44.49 0 0 1-16.49-34.529A44.49 44.49 0 0 1 256 234.845" />
+                    </svg>
+                </div>
+
+                <script>
+                    function showAlert() {
+                        showToast("You must be logged in to see the wishlist", "info")
+                    }
+                </script>
+            }
+        }
+        <div class="relative inline-block mx-2">
+            <a asp-controller="books" asp-action="bag">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 512 512">
+                    <path fill="white" d="M454.65 169.4A31.82 31.82 0 0 0 432 160h-64v-16a112 112 0 0 0-224 0v16H80a32 32 0 0 0-32 32v216c0 39 33 72 72 72h272a72.22 72.22 0 0 0 50.48-20.55a69.48 69.48 0 0 0 21.52-50.2V192a31.75 31.75 0 0 0-9.35-22.6M176 144a80 80 0 0 1 160 0v16H176Z" />
+                </svg>
+            </a>
+            <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                @currentCart
+            </span>
+        </div>
+        @{
+            if(User.Identity.Name != null)
+            {
+                <!--<form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="ml-4 text-black py-2 px-6 rounded" style="background: linear-gradient(to right, #FFEE9B, #FF9855);">LogOut</button>
+                </form>-->
+
+                <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
+                    <span class="sr-only">Open user menu</span>
+                    <img class="w-8 h-8 rounded-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCyvGD8XYSDrdgC5juEQm-tQs8M-gcl7x7w&s" alt="user photo">
+                </button>
+
+                <!-- Dropdown menu -->
+                <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div>User</div>
+                        <div class="font-medium truncate">User@gmail.com</div>
+                    </div>
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Page</a>
+                        </li>
+                        <li>
+                            <a asp-controller="order" asp-action="" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Order</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        </li>
+                    </ul>
+                    <div class="py-2">
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            <button type="submit">Logout</button>
+                        </form>
+                        
+                    </div>
+                </div>
+
+            } else
+            {
+                <a asp-controller="Account" asp-action="Login" class="ml-4 text-black py-2 px-6 rounded" style="background: linear-gradient(to right, #FFEE9B, #FF9855);">Login</a>
+            }
+        }
+
+    </div>
+</nav>

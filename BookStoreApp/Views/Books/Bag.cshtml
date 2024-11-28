@@ -1,0 +1,60 @@
+﻿@model BookStoreApp.Controllers.Model.BagViewModel
+@{
+    ViewData["Title"] = "Bag";
+}
+
+<!-- Header -->
+@await Html.PartialAsync("_Navbar");
+
+<main class="p-6 px-12 flex flex-col lg:flex-row justify-between space-y-6 lg:space-y-0">
+    <!-- Book Cart Section -->
+    <section class="w-full lg:w-1/2 mt-3">
+        @{
+            foreach(var bag in Model.Bags)
+            {
+        <div class="w-full flex items-center my-2 px-4 py-3 bg-white shadow-md rounded-md space-x-4">
+            <!-- Image Section -->
+            <div class="w-20 h-20 flex-shrink-0">
+                <img src="@bag.Book.CoverImageUrl" class="w-full h-full object-cover rounded-md" alt="Book cover" />
+            </div>
+
+            <!-- Details Section -->
+            <div class="flex flex-col flex-grow">
+                <h5 class="text-lg font-semibold">@bag.Book.Title</h5>
+                <div class="flex justify-between mt-1">
+                    <p class="text-lg font-medium text-gray-700">$@bag.Book.Price</p>
+                    <p class="text-sm text-gray-600"><span class="font-bold">Qty:</span> @bag.Quantity</p>
+                </div>
+            </div>
+        </div>  
+            }
+        }
+    </section>
+
+    <!-- Checkout Card Section -->
+    <section class="w-full lg:w-1/4 bg-white p-6 space-y-4">
+        <div class="w-full lg:w-full bg-white shadow-md rounded-md p-6 space-y-4">
+        <h2 class="text-xl font-semibold text-gray-800">Order Summary</h2>
+        <div class="flex justify-between text-gray-600">
+            <p>Subtotal</p>
+            <p>$@Model.Subtotal</p>
+        </div>
+        <div class="flex justify-between text-gray-600">
+            <p>Tax</p>
+            <p>$@Model.Tax.ToString("F")</p>
+        </div>
+        <div class="flex justify-between font-semibold text-gray-800 border-t pt-4">
+            <p>Total</p>
+            <p>$@Model.Total.ToString("F")</p>
+        </div>
+            <form asp-action="direct-to-payment">
+                <input type="hidden" name="Subtotal" value="@Model.Subtotal" />
+                <input type="hidden" name="Tax" value="@Model.Tax" />
+                <input type="hidden" name="Total" value="@Model.Total" />
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-md">
+                    Checkout
+                </button>
+            </form>
+        </div>
+    </section>
+</main>

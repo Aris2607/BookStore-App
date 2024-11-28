@@ -1,0 +1,152 @@
+﻿@model BookStoreApp.Controllers.Model.PaymentViewModel
+
+@{
+    ViewData["Title"] = "Payment";
+    if(TempData["error"] != null)
+    {
+        <script>
+            showToast('@TempData["error"]', "error")
+        </script>
+    }
+}
+
+@await Html.PartialAsync("_Navbar")
+
+<!-- Breadcrumb -->
+<div class="p-4 flex items-center text-gray-500">
+    <a href="#" class="hover:text-gray-700 mr-2">Back</a> |
+    <span class="mx-2">Contact</span> >
+    <span class="mx-2">Shipping Method</span> >
+    <span class="mx-2">Payment</span>
+</div>
+
+<!-- Main Content -->
+<main class="p-6 px-12 flex flex-col lg:flex-row justify-between space-y-6 lg:space-y-0">
+    <!-- Contact Information Section -->
+    <section class="w-1/2 lg:w-1/2">
+        @if (!string.IsNullOrEmpty(Model.ContactResponse.Name))
+        {
+            <div class="block flex justify-between max-w-sm p-6 bg-gray-100 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Contact</h5>
+                    <h3 class="font-normal text-gray-700 dark:text-gray-400">Name and Surename</h3>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">Mobile</p>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">Address</p>
+                </div>
+                <div class="relative">
+                    <p class="font-normal text-gray-700 dark:text-gray-400 absolute top-0 right-0">Edit</p>
+                    <p class="font-normal text-gray-700 dark:text-gray-400 mt-10">@Model.ContactResponse.Name</p>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">@Model.ContactResponse.Mobile</p>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">@Model.ContactResponse.Address</p>
+                </div>
+            </div>
+        }
+
+        <h1 class="text-2xl font-bold mb-4">@(string.IsNullOrEmpty(Model.ContactResponse.Name) ? "Contact Information" : "Payment Method")</h1>
+        <p class="text-gray-700 mb-4">
+            Already have an account? <a href="#" class="text-red-700 hover:underline">Sign in</a>
+        </p>
+        @{
+            if(string.IsNullOrEmpty(Model.ContactResponse.Name))
+            {
+                <form asp-action="ConfirmContact" asp-controller="Books" method="post" class="space-y-4">
+                    <input asp-for="BookId" type="hidden" />
+                    <input required asp-for="ContactResponse.Name" placeholder="Name And Surname" class="w-full p-3 border border-gray-300 rounded" />     
+                    <input required asp-for="ContactResponse.Mobile" placeholder="Mobile" class="w-full p-3 border border-gray-300 rounded" />
+                    <input required asp-for="ContactResponse.Address" placeholder="Address" class="w-full p-3 border border-gray-300 rounded" />
+                    <button class="w-full text-white py-3 rounded mt-4 hover:from-orange-500 hover:to-red-600" style="background: linear-gradient(to right, #FF9855, #942446);">CONTINUE</button>
+                </form>
+            } else
+            {
+                <div class="w-full flex">
+                    <form asp-action="ConfirmPayment" asp-controller="Books" method="post" class="space-y-4">
+                        <ul class="w-full lg:w-3/5 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600 mb-2">
+                                <div class="flex items-center justify-between w-full ps-3 px-4 relative">
+                                    <input asp-for="ContactResponse.Address" asp-name="ContactResponse.Address" type="hidden" />
+                                    <input asp-for="ContactResponse.Name" asp-name="ContactResponse.Name" type="hidden" />
+
+                                    <input id="list-radio-paypal" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="list-radio-paypal" class="w-full py-3 ms-2 ml-14 text-sm font-medium text-gray-900 dark:text-gray-300">PAYPAL<img src="https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_1280.png" class="w-11 absolute right-0 top-0" /></label>
+                                </div>
+                            </li>
+                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600 mb-2">
+                            <div class="flex items-center justify-between w-full ps-3 px-4 relative">
+                                <input id="list-radio-gopay" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="list-radio-gopay" class="w-full py-3 ms-2 ml-14 text-sm font-medium text-gray-900 dark:text-gray-300">GOPAY<img src="https://www.shutterstock.com/image-vector/logo-vector-new-gopay-partnership-260nw-1545772295.jpg" class="w-10 absolute right-0 top-0" /></label>
+                            </div>
+                        </li>
+                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600 mb-2">
+                            <div class="flex items-center justify-between w-full ps-3 px-4 relative">
+                                <input id="list-radio-dana" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="list-radio-dana" class="w-full py-3 ms-2 ml-14 text-sm font-medium text-gray-900 dark:text-gray-300">DANA<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0NKnnjO27hp_Zv-2nILVs-UBmzrYclJ5emg&s" class="w-11 absolute right-0 top-0" /></label>
+                            </div>
+                        </li>
+                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600 mb-2">
+                            <div class="flex items-center justify-between w-full ps-3 px-4 relative">
+                                <input id="list-radio-ovo" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="list-radio-ovo" class="w-full py-3 ms-2 ml-14 text-sm font-medium text-gray-900 dark:text-gray-300">OVO<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjh7g2365nYnQ-FMqIeelmm0ilU5zPfUCTgkD1lAKA4YDIrxSciQyp1vRw-V7XFaHxO7g2jx6vsli1B8skSVRigOx1lDSgK9ubiPGoHx0QD9yM-c2gs5uIaZ9SuxQfQpYShJdUsqV0-m2KDMpo9j2UlZuCGWPt0PzRTusjtnNMYGF9SXkjfdOyNhUOr/w380/GKL14_OVO%20-%20Koleksilogo.com.jpg" class="w-7 absolute right-2 top-0" /></label>
+                            </div>
+                        </li>
+                        </ul>
+                        <button class="w-full text-white py-3 rounded mt-4 hover:from-orange-500 hover:to-red-600" style="background: linear-gradient(to right, #FF9855, #942446);">PAY</button>
+                    </form>
+                </div>
+            }
+        }
+    </section>
+
+    <!-- Order Summary Section -->
+    <div class="w-full lg:w-1/3 p-6 sticky">
+    <section class="w-full bg-gray-100 p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Order Summary</h2>
+        <div class="mb-4">
+            <p class="flex justify-between"><span>Books</span> <a href="#" class="text-red-700 hover:underline">Edit</a></p>
+            <div class="space-y-2 mt-2">
+                <div class="flex justify-between">
+                        @{
+                            if(Model.Book != null)
+                            {
+                                if(!string.IsNullOrEmpty(Model.Book.Title)) {
+                                    <p>@Model.Book.Title</p>
+                                    <p>$@Model.Book.Price.ToString("F2")</p> <!-- Proper formatting -->                                
+                                }
+                            }
+                        }
+                    </div>
+                    @if(Model.BagViewModel.Bags.Count > 0) {
+                        foreach(var bag in Model.BagViewModel.Bags) {
+                            <div class="flex justify-between">
+                                <p>@bag.Book.Title</p>
+                                <p>$@bag.Book.Price.ToString("F2")</p> <!-- Proper formatting -->
+                            </div>
+                        }
+                    }
+            </div>
+        </div>
+        <div>
+            <div class="flex justify-between font-semibold text-lg mb-1">
+                <span>Subtotal</span>
+                <span>$@(Model.Book?.Price != 0 ? 0 : Model.BagViewModel.Subtotal.ToString("F"))</span>
+            </div>
+            <div class="flex justify-between font-semibold text-lg mb-1">
+                <span>Tax</span>
+                <span>$@(Model.Book?.Price != 0 ? 0 : Model.BagViewModel.Tax.ToString("F"))</span>
+            </div>
+            <div class="flex justify-between font-bold text-xl mb-4">
+                <span>TOTAL</span>
+                <span>$@(Model.Book?.Price != 0 ? Model.Book.Price.ToString("F2") : Model.BagViewModel.Total.ToString("F"))</span> <!-- Proper formatting -->
+            </div>
+        </div>
+        <div class="flex space-x-2">
+            <form asp-action="Payment" method="post" class="w-full">
+                <input asp-for="BookId" type="hidden" /> <!-- Ensure this is bound -->
+                <div class="flex justify-evenly">
+                    <input asp-for="PromoCode" type="text" placeholder="Promocode" class="w-full p-3 border border-gray-300 rounded">
+                    <button type="submit" class="ml-2 bg-gradient-to-r from-orange-400 to-red-500 text-white px-4 py-2 rounded hover:from-orange-500 hover:to-red-600" style="background: linear-gradient(to right, #FF9855, #942446);">APPLY</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    </div>
+</main>

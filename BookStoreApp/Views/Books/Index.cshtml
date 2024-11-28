@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BookStoreApp.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+
+    if(TempData["alert"] != null) {
+        <script>
+            showToast('@TempData["alert"]')
+        </script>
+    }
+
+}
+
+<!-- Header -->
+@await Html.PartialAsync("_Navbar")
+
+<!-- Main Content -->
+<main class="flex p-6">
+    <!-- Sidebar Filter -->
+    <aside class="w-64 bg-white p-4 rounded-md shadow-md mr-6">
+        <h2 class="text-xl font-semibold mb-4">Filter</h2>
+        <p class="text-gray-500 mb-4">120 results</p>
+
+        <!-- Categories Filter -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Categories</h3>
+            <label class="block"><input type="checkbox" class="mr-2"> Business</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Educational</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Marketing</label>
+        </div>
+
+        <!-- Language Filter -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Language</h3>
+            <label class="block"><input type="checkbox" class="mr-2"> English</label>
+            <label class="block"><input type="checkbox" class="mr-2"> German</label>
+        </div>
+
+        <!-- Price Filter -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Price</h3>
+            <div class="flex space-x-2">
+                <input type="number" placeholder="From" class="w-20 p-2 border border-gray-300 rounded-md">
+                <input type="number" placeholder="To" class="w-20 p-2 border border-gray-300 rounded-md">
+            </div>
+            <button class="text-white px-4 py-2 rounded-md mt-4 w-full" style="background: linear-gradient(to right, #FFEE9B, #FF9855);">APPLY</button>
+        </div>
+    </aside>
+
+    <!-- Book Grid -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 flex-1">
+        <!-- Each book item -->
+        @foreach (var book in Model)
+            {
+                <a asp-action="Product" asp-route-id="@book.Id" class="block bg-white p-4 rounded-lg shadow hover:shadow-lg">
+                    <span class="text-xs bg-green-400 text-white py-1 px-2 rounded-full uppercase font-semibold">New</span>
+                    <img src="@book.CoverImageUrl" alt="@book.Title Cover" class="w-full h-48 object-cover my-3">
+                    <h3 class="text-sm font-semibold">@book.Title</h3>
+                    <p class="text-xs text-gray-600">@book.Author</p>
+                    <p class="text-sm font-semibold mt-2">$@book.Price</p>
+                </a>
+            }
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="text-center p-4 text-gray-500 text-sm">
+    © 2024 - BookStoreApp - Privacy
+</footer>

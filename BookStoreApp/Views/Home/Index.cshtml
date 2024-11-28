@@ -1,0 +1,118 @@
+﻿@model IEnumerable<BookStoreApp.Models.Book>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Background Image and Main Banner -->
+<div class="h-screen w-full overflow-hidden">
+    <div style="position: relative; background-image: url('/img/hero-image.jpg'); height: 100%; background-size: cover; background-position: center; background-attachment: fixed;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);"></div>
+        <nav class="flex items-center justify-between p-6 relative z-10">
+            <div class="text-white font-bold text-2xl">
+                <a href="#">ARS BOOK</a>
+            </div>
+            <ul class="flex space-x-8 text-white">
+                <li><a asp-controller="books" asp-action="index" class="hover:underline">Books</a></li>
+                <li><a href="#" class="hover:underline">About Us</a></li>
+                <li><a href="#" class="hover:underline">Contacts</a></li>
+                <li><a href="#" class="hover:underline"><i class="fas fa-search"></i></a></li>
+            </ul>
+            @{
+                if (User.Identity.Name != null)
+                {
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="text-black py-2 px-6 rounded" style="background: linear-gradient(to right, #FFEE9B, #FF9855);">LogOut</button>
+                    </form>
+                } else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="text-black py-2 px-6 rounded" style="background: linear-gradient(to right, #FFEE9B, #FF9855);">Login</a>
+                }
+            }
+        </nav>
+
+        <div class="flex flex-col justify-center items-center h-screen text-white text-center relative z-10">
+            <h1 class="text-5xl font-bold mb-6">PLACE WHERE WORDS BECOME LIFE</h1>
+            <div class="flex items-center bg-white rounded-full p-2 w-1/2">
+                <input type="text" class="flex-grow px-4 py-2 rounded-l-full text-gray-700" placeholder="Find Your Book Here">
+                <button class="bg-orange-500 text-black px-6 py-2 rounded-full hover:bg-orange-600" style="background: linear-gradient(to right, #FF9855, #FFEE9B);">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Arrivals Section -->
+<div class="bg-[#F9E3D9] py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold">New Arrivals</h2>
+            <a href="#" class="px-4 py-2 text-pink-600 hover:text-white hover:bg-pink-600 font-semibold border border-pink-600">See All</a>
+        </div>
+        
+        <!-- Book Grid -->
+        <div class="overflow-x-auto">
+            <div class="inline-grid grid-flow-col auto-cols-max gap-6">
+                @foreach (var book in Model)
+                {
+                    <a asp-controller="books" asp-action="Product" asp-route-id="@book.Id" class="block bg-white p-4 rounded-lg shadow hover:shadow-lg" style="max-width: 224px;">
+                        <span class="text-xs bg-green-400 text-white py-1 px-2 rounded-full uppercase font-semibold">New</span>
+                        <img src="@book.CoverImageUrl" alt="@book.Title Cover" class="w-full h-48 object-cover my-3">
+                        <h3 class="text-sm font-semibold">@book.Title</h3>
+                        <p class="text-xs text-gray-600">@book.Author</p>
+                        <p class="text-sm font-semibold mt-2">$@book.Price</p>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Best Sellers Section -->
+<div class="bg-[#F9E3D9] py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold">Best Sellers</h2>
+            <a href="#" class="px-4 py-2 text-pink-600 hover:text-white hover:bg-pink-600 font-semibold border border-pink-600">See All</a>
+        </div>
+        
+        <!-- Book Grid -->
+        <div class="overflow-x-auto">
+            <div class="inline-grid grid-flow-col auto-cols-max gap-6">
+                @foreach (var book in Model)
+                {
+                    <a asp-controller="books" asp-action="Product" asp-route-id="@book.Id" class="block bg-white p-4 rounded-lg shadow hover:shadow-lg" style="max-width: 224px;">
+                        <span class="text-xs bg-red-500 text-white py-1 px-2 rounded-full uppercase font-semibold">Best</span>
+                        <img src="@book.CoverImageUrl" alt="@book.Title Cover" class="w-full h-48 object-cover my-3">
+                        <h3 class="text-sm font-semibold">@book.Title</h3>
+                        <p class="text-xs text-gray-600">@book.Author</p>
+                        <p class="text-sm font-semibold mt-2">$@book.Price</p>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popular Authors Section -->
+<div class="bg-[#F9E3D9] py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold">Popular Authors</h2>
+            <a href="#" class="px-4 py-2 text-pink-600 hover:text-white hover:bg-pink-600 font-semibold border border-pink-600">See All</a>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 overflow-x-auto">
+            <!-- Static Popular Author Cards as before -->
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj4m45r9bCxELx3fuwBVnYK7q9msNSus8YUw&s" alt="Rebecca Yarros" class="w-full h-40 object-cover my-3 filter grayscale">
+                <h3 class="text-sm font-semibold">Rebecca Yarros</h3>
+                <p class="text-sm font-semibold mt-2">20 Books</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg">
+                <img src="https://static.wikia.nocookie.net/hyouka/images/3/37/Honobu_Yonezawa.jpg/revision/latest?cb=20220206195345" alt="Yonezawa Honobu" class="w-full h-40 object-cover my-3 filter grayscale">
+                <h3 class="text-sm font-semibold">Yonezawa Honobu</h3>
+                <p class="text-sm font-semibold mt-2">20 Books</p>
+            </div>
+        </div>
+    </div>
+</div>

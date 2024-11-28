@@ -1,0 +1,30 @@
+﻿@model List<BookStoreApp.Models.Book>
+
+@{
+    ViewData["Title"] = "Search Books";
+}
+
+<h1>Search Books</h1>
+
+<form method="post" asp-controller="Search" asp-action="Search">
+    <input type="text" name="query" placeholder="Search for books..." class="form-control" />
+    <button type="submit" class="btn btn-primary mt-2">Search</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h2 class="mt-4">Search Results</h2>
+    <ul class="list-group">
+        @foreach (var book in Model)
+        {
+            <li class="list-group-item">
+                <strong>@book.Title</strong> by @book.Author <br />
+                <small>@book.Summary</small>
+            </li>
+        }
+    </ul>
+}
+else if (Model != null)
+{
+    <p class="text-muted mt-4">No results found.</p>
+}

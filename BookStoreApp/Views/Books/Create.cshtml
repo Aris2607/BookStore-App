@@ -1,0 +1,94 @@
+﻿@model BookStoreApp.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-2xl">
+        <h1 class="text-2xl font-bold text-center text-gray-800">Create Book</h1>
+        <p class="text-sm text-gray-500 text-center mt-1">Fill in the details of the new book below</p>
+        <hr class="my-6 border-t-2 border-gray-300" />
+
+        <form asp-action="Create" class="space-y-4" method="post" >
+            <div class="space-y-2">
+                <label asp-for="Title" class="block text-gray-700 font-medium">Title</label>
+                <input asp-for="Title" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="Title" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Author" class="block text-gray-700 font-medium">Author</label>
+                <input asp-for="Author" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="Author" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Publisher" class="block text-gray-700 font-medium">Publisher</label>
+                <input asp-for="Publisher" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="Publisher" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="PublicationYear" class="block text-gray-700 font-medium">Publication Year</label>
+                <input asp-for="PublicationYear" type="number" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="PublicationYear" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="CategoryId" class="block text-gray-700 font-medium">Category ID</label>
+                <input asp-for="CategoryId" type="number" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="CategoryId" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="PageCount" class="block text-gray-700 font-medium">Page Count</label>
+                <input asp-for="PageCount" type="number" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="PageCount" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Summary" class="block text-gray-700 font-medium">Summary</label>
+                <textarea asp-for="Summary" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                <span asp-validation-for="Summary" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="CoverImageUrl" class="block text-gray-700 font-medium">Cover Image URL</label>
+                <input asp-for="CoverImageUrl" type="url" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="CoverImageUrl" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Rating" class="block text-gray-700 font-medium">Rating</label>
+                <input asp-for="Rating" type="number" step="0.1" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="Rating" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="ReviewsCount" class="block text-gray-700 font-medium">Reviews Count</label>
+                <input asp-for="ReviewsCount" type="number" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="ReviewsCount" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="space-y-2">
+                <label asp-for="Price" class="block text-gray-700 font-medium">Price</label>
+                <input asp-for="Price" type="number" step="0.01" class="w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500" />
+                <span asp-validation-for="Price" class="text-sm text-red-500"></span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <a asp-action="Index" class="text-blue-600 hover:underline">Back to List</a>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

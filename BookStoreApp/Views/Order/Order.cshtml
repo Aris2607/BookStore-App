@@ -1,0 +1,137 @@
+﻿@model IEnumerable<BookStoreApp.Models.Transaction>
+
+@await Html.PartialAsync("_Navbar")
+
+<div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Order List</h1>
+
+    <!-- Tabs Navigation -->
+    <div class="mb-6">
+        <ul class="flex space-x-4 border-b">
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900 border-gray-800" data-target="#pending">
+                    Pending
+                </button>
+            </li>
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#deliver">
+                    Deliver
+                </button>
+            </li>
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#successed">
+                    Successed
+                </button>
+            </li>
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#cancelled">
+                    Cancelled
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Contents -->
+    <div>
+        <!-- Pending Orders -->
+        <div id="pending" class="tab-content">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Pending Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Pending"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <div>
+                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">Pending</span>
+                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Deliver Orders -->
+        <div id="deliver" class="tab-content hidden">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Deliver Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Deliver"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <div>
+                            <span class="order-status-deliver px-3 py-1 text-sm rounded-full">Deliver</span>
+                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Successed Orders -->
+        <div id="successed" class="tab-content hidden">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Successed Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Success"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <div>
+                            <span class="order-status-successed px-3 py-1 text-sm rounded-full">Successed</span>
+                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Cancelled Orders -->
+        <div id="cancelled" class="tab-content hidden">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Cancelled Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Cancelled"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <div>
+                            <span class="order-status-cancelled px-3 py-1 text-sm rounded-full">Cancelled</span>
+                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab-btn");
+        const contents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                contents.forEach(content => content.classList.add("hidden"));
+                tabs.forEach(btn => btn.classList.remove("border-gray-800"));
+
+                document.querySelector(tab.dataset.target).classList.remove("hidden");
+                tab.classList.add("border-gray-800");
+            });
+        });
+    });
+</script>

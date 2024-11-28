@@ -1,0 +1,153 @@
+﻿@model BookStoreApp.Models.Book;
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Favicon"] = Model.CoverImageUrl;
+
+    if (TempData["alert"] != null)
+    {
+        <script>
+            showToast('@TempData["alert"]')
+        </script>
+    }
+}
+
+@await Html.PartialAsync("_Navbar")
+
+
+<!-- Breadcrumb -->
+<div class="p-4">
+    <a href="#" class="text-gray-500 hover:text-gray-700">Home</a> / <a href="#" class="text-gray-500 hover:text-gray-700">Books</a> / <span class="text-gray-700">@Model.Title</span>
+</div>
+
+<!-- Main Content -->
+<main class="flex flex-col lg:flex-row p-6 space-y-6 lg:space-y-0">
+    <!-- Image Section -->
+    <section class="w-full lg:w-1/4 p-4">
+        <div class="bg-white rounded-lg shadow p-6">
+            <img src="@Model.CoverImageUrl" alt="The Warmhearted You" class="w-full h-auto object-contain mb-4">
+        </div>
+    </section>
+
+    <!-- Book Details Section -->
+    <section class="w-full lg:w-2/6 p-4">
+        <div class="bg-white rounded-lg shadow p-6 h-full">
+            <div class="flex flex-col justify-between h-full">
+                <div>
+                    <h1 class="text-2xl font-bold">@Model.Title</h1>
+                    <p class="text-gray-700"> @Model.Author</p>
+                    <div class="mt-4">
+                        <p><strong>Category:</strong> @(string.IsNullOrEmpty(Model.Category.Name) ? "-" : Model.Category.Name)</p>
+                        <p><strong>Publish Year:</strong> @Model.PublicationYear</p>
+                        <p><strong>Language:</strong> English</p>
+                        <p><strong>Pages:</strong> @Model.PageCount</p>
+                        <p><strong>Type:</strong> Novel</p>
+                        <p><strong>Publisher:</strong> @(string.IsNullOrEmpty(Model.Publisher) ? "-" : Model.Publisher)</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-start mt-6">
+                    <p class="text-3xl font-bold text-black">$@Model.Price</p>
+                    <div class="mt-2 flex">
+                        <form asp-action="addToBag" method="post">
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                            <input type="hidden" name="CoverImageUrl" value="@Model.CoverImageUrl" />
+                            <input type="hidden" name="Title" value="@Model.Title" />
+                            <input type="hidden" name="Price" value="@Model.Price" />
+                            <input type="hidden" name="Summary" value="@Model.Summary" />
+                            <button type="submit" class="text-red-700 py-2 px-6 rounded hover:bg-red-700 hover:text-white border border-red-700">Add to Bag</button>
+                        </form>
+                        <a asp-controller="books" asp-action="payment" asp-route-Id="@Model.Id" class="bg-red-700 text-white py-2 px-6 rounded ml-4 hover:bg-red-800">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section class="w-full lg:w-2/5 p-4">
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold">About</h2>
+            <p class="mt-4 text-gray-600">@Model.Summary</p>
+        </div>
+    </section>
+</main>
+
+<!-- Reviews Section -->
+<section class="p-6">
+    <div class="flex justify-between">
+    <h2 class="text-xl font-semibold mb-4">Reader's Reviews</h2>
+    <button class="text-red-700 font-semibold mb-6 border border-red-700 px-4 py-2 rounded hover:bg-red-700 hover:text-white addReview">Add Review</button>
+    </div>
+        <div class="space-y-8 my-2">
+            <div class="bg-gray-100 p-4 rounded-lg shadow">
+                <div class="flex items-center mb-2">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCyvGD8XYSDrdgC5juEQm-tQs8M-gcl7x7w&s" alt="Suichan" class="w-8 h-8 rounded-full mr-3">
+                    <p class="font-semibold">Suichan <span class="text-gray-500 text-sm ml-2">3 days ago</span></p>
+                    <p class="text-yellow-500 ml-auto">(4/5) @String.Concat(Enumerable.Repeat("★", 4))</p>
+                </div>
+                <p class="text-gray-700">What a great Novel!! I love it!</p>
+                <p class="text-gray-400 text-xs mt-2">Reviewed on Oct 28, 2024</p>
+            </div>
+        </div>
+        <div class="space-y-8 my-2">
+            <div class="bg-gray-100 p-4 rounded-lg shadow">
+                <div class="flex items-center mb-2">
+                    <img src="https://i.pinimg.com/736x/a6/32/f8/a632f83d57b23ce6b27032adf73ee0f3.jpg" alt="Suichan" class="w-8 h-8 rounded-full mr-3">
+                    <p class="font-semibold">すいちゃん <span class="text-gray-500 text-sm ml-2">3 days ago</span></p>
+                    <p class="text-yellow-500 ml-auto">(5/5) @String.Concat(Enumerable.Repeat("★", 5))</p>
+                </div>
+                <p class="text-gray-700">本当に大好き❤️❤️この本は最高です!</p>
+                <p class="text-gray-400 text-xs mt-2">Reviewed on Oct 28, 2024</p>
+            </div>
+        </div>
+</section>
+
+<!-- Recommended Books -->
+<section class="p-6">
+    <h2 class="text-xl font-semibold mb-4">You May Also Like</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTolxNRPRC-rla_4Uu_WG5aElBc5EEzkobBPw&s" alt="Recommended Book Cover" class="w-full h-48 object-contain mb-3">
+            <h3 class="text-sm font-semibold">Fourth Wing</h3>
+            <p class="text-xs text-gray-600">Rebecca Yarros</p>
+            <p class="text-sm font-semibold mt-2">$25.90</p>
+        </div>
+    </div>
+</section>
+
+<!-- Modal untuk menambahkan review -->
+<div id="reviewModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg p-6 w-1/3">
+        <h2 class="text-lg font-semibold mb-4">Tulis Review</h2>
+        <form id="reviewForm">
+            <div class="mb-4">
+                <label for="reviewerName" class="block text-sm font-medium text-gray-700">Nama Anda</label>
+                <input type="text" id="reviewerName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Rating</label>
+                <div class="flex items-center mt-1">
+                    <input type="radio" name="rating" id="star5" value="5" class="hidden" required>
+                    <label for="star5" class="cursor-pointer text-2xl p-1 transition-colors duration-200">★</label>
+                    <input type="radio" name="rating" id="star4" value="4" class="hidden">
+                    <label for="star4" class="cursor-pointer text-2xl p-1 transition-colors duration-200">★</label>
+                    <input type="radio" name="rating" id="star3" value="3" class="hidden">
+                    <label for="star3" class="cursor-pointer text-2xl p-1 transition-colors duration-200">★</label>
+                    <input type="radio" name="rating" id="star2" value="2" class="hidden">
+                    <label for="star2" class="cursor-pointer text-2xl p-1 transition-colors duration-200">★</label>
+                    <input type="radio" name="rating" id="star1" value="1" class="hidden">
+                    <label for="star1" class="cursor-pointer text-2xl p-1 transition-colors duration-200">★</label>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="reviewText" class="block text-sm font-medium text-gray-700">Review</label>
+                <textarea id="reviewText" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" rows="4" required></textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" id="closeReviewModal" class="bg-red-500 text-white px-4 py-2 rounded mr-2">Batal</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Kirim Review</button>
+            </div>
+        </form>
+    </div>
+</div>

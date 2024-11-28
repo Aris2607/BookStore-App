@@ -1,0 +1,149 @@
+﻿@{
+    var activeController = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="@ViewData["Favicon"]" />
+    <title>@ViewData["Title"] - BookStoreApp</title>
+    <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BookStoreApp.styles.css" asp-append-version="true" />
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.tailwindcss.com">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+
+    <!-- Sweetalert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="~/js/toasUtil.js"></script>
+
+    <style>
+                /* Style the entire scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px; /* Adjust width */
+            height: 8px; /* Adjust height for horizontal scroll */
+        }
+
+        /* Style the track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Light gray background */
+            border-radius: 10px;
+        }
+
+        /* Style the scroll handle (thumb) */
+        ::-webkit-scrollbar-thumb {
+            background: transparent; /* Darker gray */
+            border-radius: 10px;
+        }
+
+        /* Hover effect on the thumb */
+        ::-webkit-scrollbar-thumb:hover {
+            background: transparent8); /* Even darker on hover */
+        }
+
+        body {
+            font-family: "Poppins", Arial;
+        }
+        .container, .container-fluid {
+        max-width: 100% !important;
+        padding: 0;
+    }
+    </style>
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <main role="main" class="pb-12">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--<footer class="border-top footer text-muted">
+        <div class="container-fluid">
+            &copy; 2024 - BookStoreApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        // Menangani pembukaan modal
+    document.querySelector('.addReview').onclick = function() {
+        document.getElementById('reviewModal').classList.remove('hidden');
+    };
+
+    // Menangani penutupan modal
+    document.getElementById('closeReviewModal').onclick = function() {
+        document.getElementById('reviewModal').classList.add('hidden');
+    };
+
+    // Menangani pengiriman form
+    document.getElementById('reviewForm').onsubmit = function(event) {
+        event.preventDefault();
+
+        const reviewerName = document.getElementById('reviewerName').value;
+        const reviewRating = document.querySelector('input[name="rating"]:checked').value;
+        const reviewText = document.getElementById('reviewText').value;
+
+        // Logika untuk menambahkan review ke tampilan bisa ditambahkan di sini
+        console.log(`Reviewer: ${reviewerName}, Rating: ${reviewRating}, Review: ${reviewText}`);
+
+        // Menutup modal setelah mengirim review
+        document.getElementById('reviewModal').classList.add('hidden');
+        
+        // Kosongkan form
+        document.getElementById('reviewForm').reset();
+        
+        // Reset warna bintang
+        resetStarColors();
+    };
+
+    // Menambahkan logika untuk menampilkan rating saat memilih bintang
+    const stars = document.querySelectorAll('input[name="rating"]');
+    stars.forEach((star, index) => {
+        star.addEventListener('change', () => {
+            resetStarColors(); // Reset warna sebelum diwarnai
+            for (let i = 0; i <= index; i++) {
+                const label = document.querySelector(`label[for="${stars[i].id}"]`);
+                label.style.color = "gold"; // Mengubah warna bintang yang dipilih menjadi emas
+            }
+        });
+    });
+
+    function resetStarColors() {
+        stars.forEach((star) => {
+            const label = document.querySelector(`label[for="${star.id}"]`);
+            label.style.color = ""; // Mengatur kembali warna ke default (transparan)
+        });
+    }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function applyPromoCode(bookId) {
+            const promoCode = $("#promoCode").val();
+
+            $.ajax({
+                url: '@Url.Action("ApplyPromoCode", "Payment")',
+                type: 'POST',
+                data: { PromoCode: promoCode, Book: { Id: bookId } },
+                success: function (result) {
+                    $("#totalPrice").html(result);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

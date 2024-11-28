@@ -1,0 +1,378 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\search\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\search\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\books\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\books\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\services\\elasticsearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\services\\elasticsearchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\filters\\notfoundifnotallowedattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\filters\\notfoundifnotallowedattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\filters\\redirectifauthenticatedattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\filters\\redirectifauthenticatedattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\models\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\models\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\models\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\models\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\books\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\books\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\books\\bag.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\books\\bag.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\views\\order\\order.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\views\\order\\order.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|c:\\users\\lenovo g400\\source\\repos\\bookstoreapp\\bookstoreapp\\models\\basemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5854FDA6-4E9B-4EB7-BE93-E579E5DDC377}|BookStoreApp\\BookStoreApp.csproj|solutionrelative:bookstoreapp\\models\\basemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Program.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Program.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Program.cs",
+              "RelativeToolTip": "BookStoreApp\\Program.cs",
+              "ViewState": "AgIAAAUAAADAMjMzMzMbwAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T07:20:41.373Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Search\\Index.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Search\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Search\\Index.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Search\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T07:59:09.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SearchController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\SearchController.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Controllers\\SearchController.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\SearchController.cs",
+              "RelativeToolTip": "BookStoreApp\\Controllers\\SearchController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAQwCkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T07:56:18.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Search.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Books\\Search.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Books\\Search.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Books\\Search.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Books\\Search.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAIwBYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T07:30:36.249Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ElasticsearchService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Services\\ElasticsearchService.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Services\\ElasticsearchService.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Services\\ElasticsearchService.cs",
+              "RelativeToolTip": "BookStoreApp\\Services\\ElasticsearchService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T07:22:11.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BookService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Services\\BookService.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Services\\BookService.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Services\\BookService.cs",
+              "RelativeToolTip": "BookStoreApp\\Services\\BookService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T04:23:16.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "_Navbar.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Shared\\_Navbar.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Shared\\_Navbar.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Shared\\_Navbar.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Shared\\_Navbar.cshtml",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAEoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:58:26.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Bag.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Books\\Bag.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Books\\Bag.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Books\\Bag.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Books\\Bag.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:57:27.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAFoAAAAAAAAAAABgPU0AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:37:54.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:36:36.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:36:09.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Product.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Books\\Product.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Books\\Product.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Books\\Product.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Books\\Product.cshtml",
+              "ViewState": "AgIAACgAAAAAAAAAAABAPTAAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:35:22.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RedirectIfAuthenticatedAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Filters\\RedirectIfAuthenticatedAttribute.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Filters\\RedirectIfAuthenticatedAttribute.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Filters\\RedirectIfAuthenticatedAttribute.cs",
+              "RelativeToolTip": "BookStoreApp\\Filters\\RedirectIfAuthenticatedAttribute.cs",
+              "ViewState": "AgIAAAMAAABQMzMzMzMLwA4AAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T03:13:55.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "BookStoreApp\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAmwEAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T03:12:40.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "BookStoreApp\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAABYAAACAZmZmZmYWwCkAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T03:12:40.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BooksController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\BooksController.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Controllers\\BooksController.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Controllers\\BooksController.cs",
+              "RelativeToolTip": "BookStoreApp\\Controllers\\BooksController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAADwv00AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T03:12:40.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "NotFoundIfNotAllowedAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Filters\\NotFoundIfNotAllowedAttribute.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Filters\\NotFoundIfNotAllowedAttribute.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Filters\\NotFoundIfNotAllowedAttribute.cs",
+              "RelativeToolTip": "BookStoreApp\\Filters\\NotFoundIfNotAllowedAttribute.cs",
+              "ViewState": "AgIAAAUAAAA0MzMzMzMrwAwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T03:14:32.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Order.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Order\\Order.cshtml",
+              "RelativeDocumentMoniker": "BookStoreApp\\Views\\Order\\Order.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Views\\Order\\Order.cshtml",
+              "RelativeToolTip": "BookStoreApp\\Views\\Order\\Order.cshtml",
+              "ViewState": "AgIAADcAAAAAAAAAAAAwwEYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-28T03:09:10.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BaseModel.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Models\\BaseModel.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Models\\BaseModel.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Models\\BaseModel.cs",
+              "RelativeToolTip": "BookStoreApp\\Models\\BaseModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T03:07:34.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Wishlist.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Models\\Wishlist.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Models\\Wishlist.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Models\\Wishlist.cs",
+              "RelativeToolTip": "BookStoreApp\\Models\\Wishlist.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T02:55:37.121Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Review.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Models\\Review.cs",
+              "RelativeDocumentMoniker": "BookStoreApp\\Models\\Review.cs",
+              "ToolTip": "C:\\Users\\Lenovo G400\\source\\repos\\BookStoreApp\\BookStoreApp\\Models\\Review.cs",
+              "RelativeToolTip": "BookStoreApp\\Models\\Review.cs",
+              "ViewState": "AgIAAAMAAACAmZmZmZkdwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T02:55:20.376Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

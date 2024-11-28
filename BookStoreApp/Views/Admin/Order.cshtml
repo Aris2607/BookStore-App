@@ -1,0 +1,166 @@
+﻿@model IEnumerable<BookStoreApp.Models.Transaction>
+
+<div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Order List</h1>
+
+    <!-- Tabs Navigation -->
+    <div class="mb-6">
+        <ul class="flex space-x-4 border-b">
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900 border-gray-800" data-target="#pending">
+                    Pending
+                </button>
+            </li>
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#deliver">
+                    Deliver
+                </button>
+            </li>
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#successed">
+                    Successed
+                </button>
+            </li>
+            <li>
+                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#cancelled">
+                    Cancelled
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Contents -->
+    <div>
+        <!-- Pending Orders -->
+        <div id="pending" class="tab-content">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Pending Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Pending"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <div>
+                            <a href="#" onclick="confirmAlert('Deliver the book?', 'This will set the status to deliver', '#33f3ff', 'Deliver', 'Delivered', 'The book is delivered!', event, @order.Id, 'deliver')" class="order-status-pending px-3 py-1 text-sm rounded-full">Deliver</a>
+                            <a href="#" onclick="confirmAlert('Cancle the order?', 'This will set the status to cancelled', '#3085d6', 'Cancel order', 'Cancelled', 'The book is cancelled!', event, @order.Id, 'cancel')" class="order-status-pending px-3 py-1 text-sm rounded-full">Cancel</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Deliver Orders -->
+        <div id="deliver" class="tab-content hidden">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Deliver Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Deliver"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <span class="order-status-deliver px-3 py-1 text-sm rounded-full">Deliver</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Successed Orders -->
+        <div id="successed" class="tab-content hidden">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Successed Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Success"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <span class="order-status-successed px-3 py-1 text-sm rounded-full">Successed</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Cancelled Orders -->
+        <div id="cancelled" class="tab-content hidden">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Cancelled Orders</h2>
+            <div class="space-y-4">
+                @foreach (var order in Model.Where(o => o.Status == "Cancelled"))
+                {
+                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
+                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+                        </div>
+                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
+                        <span class="order-status-cancelled px-3 py-1 text-sm rounded-full">Cancelled</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".tab-btn");
+        const contents = document.querySelectorAll(".tab-content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                contents.forEach(content => content.classList.add("hidden"));
+                tabs.forEach(btn => btn.classList.remove("border-gray-800"));
+
+                document.querySelector(tab.dataset.target).classList.remove("hidden");
+                tab.classList.add("border-gray-800");
+            });
+        });
+    });
+
+    function confirmAlert(title, message, color, actionText, successText, successMessage, event, orderId, action) {
+        event.preventDefault(); // Prevents the default anchor behavior
+
+        // Use SweetAlert to show the confirmation dialog
+        Swal.fire({
+            title: title,
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: actionText,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Perform the AJAX request if the user confirms
+                fetch(`/Admin/${action}/${orderId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // CSRF token if needed
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Show success message with SweetAlert
+                            Swal.fire('Success', successMessage, 'success').then(() => {
+                                // Reload the page after the success alert
+                                location.reload(); // This will reload the page
+                            });
+                        } else {
+                            Swal.fire('Error', 'Something went wrong', 'error');
+                        }
+                    })
+                    .catch(error => Swal.fire('Error', 'Something went wrong', 'error'));
+            }
+        });
+    }
+
+
+
+</script>

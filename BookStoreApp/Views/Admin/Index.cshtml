@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BookStoreApp.Models.Book>
+
+@{
+    ViewData["Title"] = "Books List - Admin CMS";
+
+    if (TempData["error"] != null)
+    {
+        <script>
+            showToast('TempData["error"]', error)
+        </script>
+    }
+
+    if (TempData["alert"] != null)
+    {
+        <script>
+            showToast('TempData["alert]"', success)
+        </script>
+    }
+}
+
+@await Html.PartialAsync("_AdminNavbar")
+
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-6">Books List</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="bg-yellow-100 text-yellow-700 p-4 rounded">
+            <p>No books available. Please add some books!</p>
+        </div>
+    }
+    else
+    {
+        <div class="overflow-x-auto shadow-lg rounded-lg">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <tr>
+                        <th class="py-3 px-6 text-left">#</th>
+                        <th class="py-3 px-6 text-left">Title</th>
+                        <th class="py-3 px-6 text-left">Author</th>
+                        <th class="py-3 px-6 text-left">Publisher</th>
+                        <th class="py-3 px-6 text-center">Year</th>
+                        <th class="py-3 px-6 text-center">Rating</th>
+                        <th class="py-3 px-6 text-center">Price</th>
+                        <th class="py-3 px-6 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700 text-sm">
+                    @foreach (var book in Model)
+                    {
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left">@book.Id</td>
+                            <td class="py-3 px-6 text-left">@book.Title</td>
+                            <td class="py-3 px-6 text-left">@book.Author</td>
+                            <td class="py-3 px-6 text-left">@book.Publisher</td>
+                            <td class="py-3 px-6 text-center">@book.PublicationYear</td>
+                            <td class="py-3 px-6 text-center">
+                                @if (book.Rating.HasValue)
+                                {
+                                    @string.Format("{0:0.0}", book.Rating)
+                                }
+                                else
+                                {
+                                    <span class="text-gray-500">N/A</span>
+                                }
+                            </td>
+                            <td class="py-3 px-6 text-center">$@string.Format("{0:0.00}", book.Price)</td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex justify-center space-x-2">
+                                    <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Edit</a>
+                                    <a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-blue-600">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
