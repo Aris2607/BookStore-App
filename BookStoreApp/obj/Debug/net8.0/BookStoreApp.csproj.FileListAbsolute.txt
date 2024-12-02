@@ -259,3 +259,4 @@ C:\Users\Lenovo G400\source\repos\BookStoreApp\BookStoreApp\obj\Debug\net8.0\ref
 C:\Users\Lenovo G400\source\repos\BookStoreApp\BookStoreApp\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Lenovo G400\source\repos\BookStoreApp\BookStoreApp\bin\Debug\net8.0\Elasticsearch.Net.dll
 C:\Users\Lenovo G400\source\repos\BookStoreApp\BookStoreApp\bin\Debug\net8.0\Nest.dll
+C:\Users\Lenovo G400\source\repos\BookStoreApp\BookStoreApp\obj\Debug\net8.0\BookStoreApp.sourcelink.json

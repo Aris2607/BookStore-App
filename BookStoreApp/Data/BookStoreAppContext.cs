@@ -22,6 +22,7 @@ namespace BookStoreApp.Data
         public DbSet<Bag> Bags { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Error> Errors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

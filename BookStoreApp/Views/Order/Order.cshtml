@@ -3,29 +3,49 @@
 @await Html.PartialAsync("_Navbar")
 
 <div class="max-w-6xl mx-auto p-6">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Order List</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Your Orders</h1>
 
     <!-- Tabs Navigation -->
     <div class="mb-6">
-        <ul class="flex space-x-4 border-b">
+        <ul class="flex space-x-6 border-b text-gray-600">
             <li>
-                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900 border-gray-800" data-target="#pending">
-                    Pending
+                <button class="tab-btn py-3 px-4 font-medium hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600" data-target="#pending">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12l6 6M8 12l6-6"></path>
+                        </svg>
+                        Pending
+                    </span>
                 </button>
             </li>
             <li>
-                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#deliver">
-                    Deliver
+                <button class="tab-btn py-3 px-4 font-medium hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600" data-target="#deliver">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z"></path>
+                        </svg>
+                        Deliver
+                    </span>
                 </button>
             </li>
             <li>
-                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#successed">
-                    Successed
+                <button class="tab-btn py-3 px-4 font-medium hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600" data-target="#successed">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Successed
+                    </span>
                 </button>
             </li>
             <li>
-                <button class="tab-btn text-gray-600 border-b-2 border-transparent py-2 px-4 font-medium hover:text-gray-900" data-target="#cancelled">
-                    Cancelled
+                <button class="tab-btn py-3 px-4 font-medium hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600" data-target="#cancelled">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 12l8 8M12 12l-8 8"></path>
+                        </svg>
+                        Cancelled
+                    </span>
                 </button>
             </li>
         </ul>
@@ -33,89 +53,37 @@
 
     <!-- Tab Contents -->
     <div>
-        <!-- Pending Orders -->
-        <div id="pending" class="tab-content">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Pending Orders</h2>
-            <div class="space-y-4">
-                @foreach (var order in Model.Where(o => o.Status == "Pending"))
-                {
-                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
-                            <p class="text-sm text-gray-500">Book: @order.Book</p>
+        @foreach (var status in new[] { "Pending", "Deliver", "Success", "Cancelled" })
+        {
+            <div id="@status.ToLower()" class="tab-content @(status == "Pending" ? "" : "hidden")">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">@status Orders</h2>
+                <div class="grid gap-6">
+                    @foreach (var order in Model.Where(o => o.Status == status))
+                    {
+                        <div class="bg-white shadow-md rounded-lg p-6 flex items-center justify-between">
+                            <!-- Order Info -->
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-gray-100 p-3 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-800 font-medium">Order #@order.Id</p>
+                                    <p class="text-sm text-gray-500">Book: @order.Book</p>
+                                    <p class="text-sm text-gray-500">Date: @order.createdTime ?? "-"</p>
+                                </div>
+                            </div>
+                            <!-- Price & Actions -->
+                            <div class="flex items-center space-x-6">
+                                <span class="text-lg font-bold text-gray-900">$@order.Total.ToString("F2")</span>
+                                <span class="px-3 py-1 text-sm rounded-full bg-@(status.ToLower())-100 text-@(status.ToLower())-600">@status</span>
+                            </div>
                         </div>
-                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
-                        <div>
-                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">Pending</span>
-                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
-                        </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
-
-        <!-- Deliver Orders -->
-        <div id="deliver" class="tab-content hidden">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Deliver Orders</h2>
-            <div class="space-y-4">
-                @foreach (var order in Model.Where(o => o.Status == "Deliver"))
-                {
-                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
-                            <p class="text-sm text-gray-500">Book: @order.Book</p>
-                        </div>
-                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
-                        <div>
-                            <span class="order-status-deliver px-3 py-1 text-sm rounded-full">Deliver</span>
-                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <!-- Successed Orders -->
-        <div id="successed" class="tab-content hidden">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Successed Orders</h2>
-            <div class="space-y-4">
-                @foreach (var order in Model.Where(o => o.Status == "Success"))
-                {
-                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
-                            <p class="text-sm text-gray-500">Book: @order.Book</p>
-                        </div>
-                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
-                        <div>
-                            <span class="order-status-successed px-3 py-1 text-sm rounded-full">Successed</span>
-                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <!-- Cancelled Orders -->
-        <div id="cancelled" class="tab-content hidden">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Cancelled Orders</h2>
-            <div class="space-y-4">
-                @foreach (var order in Model.Where(o => o.Status == "Cancelled"))
-                {
-                    <div class="bg-white shadow rounded p-4 flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-700 font-medium">Order #@order.Id</p>
-                            <p class="text-sm text-gray-500">Book: @order.Book</p>
-                        </div>
-                        <span class="text-gray-700 font-bold">$@order.Total.ToString("F2")</span>
-                        <div>
-                            <span class="order-status-cancelled px-3 py-1 text-sm rounded-full">Cancelled</span>
-                            <span class="order-status-pending px-3 py-1 text-sm rounded-full">@order.createdTime ?? "-"</span>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -127,10 +95,10 @@
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
                 contents.forEach(content => content.classList.add("hidden"));
-                tabs.forEach(btn => btn.classList.remove("border-gray-800"));
+                tabs.forEach(btn => btn.classList.remove("border-blue-600"));
 
                 document.querySelector(tab.dataset.target).classList.remove("hidden");
-                tab.classList.add("border-gray-800");
+                tab.classList.add("border-blue-600");
             });
         });
     });

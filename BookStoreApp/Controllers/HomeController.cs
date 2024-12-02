@@ -3,6 +3,8 @@ using BookStoreApp.Data.Interfaces;
 using BookStoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using BookStoreApp.ViewModels;
+using BookStoreApp.Filters;
 
 namespace BookStoreApp.Controllers
 {
@@ -16,11 +18,32 @@ namespace BookStoreApp.Controllers
             (_logger, _bookService) = (logger, bookService);
         }
 
-        public async Task<IActionResult> Index()
+        [NotForAdmin]
+        public async Task<IActionResult> Index(string query, int page = 1, int pageSize = 10)
         {
-            List<Book> books = await _bookService.GetAllBooksAsync();
-            return View(books);
+            try
+            {
+                List<Book> mainBooks = await _bookService.GetAllBooksAsync(page, pageSize);
+                List<Book> searchBooks = new List<Book>();
+
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    searchBooks = await _bookService.SearchBook(query);
+                }
+
+                HomeViewModel model = new HomeViewModel
+                {
+                    MainBooks = mainBooks,
+                    SearchBooks = searchBooks,
+                    Query = query
+                };
+                return View(model);
+            } catch (Exception x)
+            {
+                return StatusCode(500);
+            }
         }
+
 
         public IActionResult Privacy()
         {

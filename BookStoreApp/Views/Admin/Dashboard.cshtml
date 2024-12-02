@@ -1,0 +1,117 @@
+﻿@model BookStoreApp.Views.Admin.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard - Back Office";
+}
+
+<div class="flex min-h-screen bg-gray-100">
+    <!-- Sidebar -->
+    @await Html.PartialAsync("_Sidebar")
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+        <!-- Page Header -->
+        <header class="flex items-center justify-between mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Dashboard</h1>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Admin Balance -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Admin Balance</h2>
+                <p class="text-3xl font-bold text-green-600">$12,345.67</p>
+                <p class="text-sm text-gray-500 mt-1">Updated: Just now</p>
+                <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">
+                    Withdraw
+                </button>
+            </div>
+
+            <!-- Orders Summary -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Order Summary</h2>
+                <ul class="text-gray-600 space-y-2">
+                    <li><strong class="text-gray-800">Pending:</strong> 24 Orders</li>
+                    <li><strong class="text-gray-800">Delivered:</strong> 58 Orders</li>
+                    <li><strong class="text-gray-800">Cancelled:</strong> 12 Orders</li>
+                </ul>
+            </div>
+
+            <!-- Stock Overview -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Stock Overview</h2>
+                <ul class="text-gray-600 space-y-2">
+                    <li><strong class="text-gray-800">Books in Stock:</strong> 142</li>
+                    <li><strong class="text-gray-800">Low Stock:</strong> 5 Books</li>
+                    <li><strong class="text-gray-800">Out of Stock:</strong> 2 Books</li>
+                </ul>
+            </div>
+
+            <!-- Best-Sellers -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-2">Best Sellers</h2>
+                <ol class="text-gray-600 space-y-2 list-decimal pl-4">
+                    <li>Approximating the distance between two people</li>
+                    <li>Hyouka</li>
+                    <li>The Warmhearted You</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Sales and Best-Sellers Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+            <!-- Sales Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Sales Overview</h2>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <!-- Best-Sellers Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Best Seller Stats</h2>
+                <canvas id="bestSellerChart"></canvas>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Chart.js Integration -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Sales Chart
+    const salesChartCtx = document.getElementById('salesChart').getContext('2d');
+    new Chart(salesChartCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov'],
+            datasets: [{
+                label: 'Sales',
+                data: [1200, 1900, 3000, 5000, 2400, 3400],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+    // Best-Seller Chart
+    const bestSellerChartCtx = document.getElementById('bestSellerChart').getContext('2d');
+    new Chart(bestSellerChartCtx, {
+        type: 'bar',
+        data: {
+            labels: ['The Warmhearted You', 'Hyouka', 'Approximating the distance between two people', 'Credit roll of the fool', 'Fourth Wing'],
+            datasets: [{
+                label: 'Copies Sold',
+                data: [45, 75, 60, 40, 20],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+</script>

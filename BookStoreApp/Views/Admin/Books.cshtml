@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BookStoreApp.Models.Book>
+
+@{
+    ViewData["Title"] = "Books List - Back Office";
+}
+
+<div class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    @await Html.PartialAsync("_Sidebar")
+
+    <!-- Main Content -->
+    <main class="flex-grow p-6">
+        <h1 class="text-2xl font-bold mb-6">Books List</h1>
+        <a asp-action="create" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            Add Book
+        </a>
+
+        @if (TempData["error"] != null)
+        {
+            <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                @TempData["error"]
+            </div>
+        }
+
+        @if (TempData["alert"] != null)
+        {
+            <div class="bg-green-100 text-green-700 p-4 rounded mb-4">
+                @TempData["alert"]
+            </div>
+        }
+
+        @if (Model == null || !Model.Any())
+        {
+            <div class="bg-yellow-100 text-yellow-700 p-4 rounded">
+                No books available. Please add some books!
+            </div>
+        }
+        else
+        {
+            <div class="overflow-x-auto shadow-lg rounded-lg">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <tr>
+                            <th class="py-3 px-6 text-left">#</th>
+                            <th class="py-3 px-6 text-left">Title</th>
+                            <th class="py-3 px-6 text-left">Author</th>
+                            <th class="py-3 px-6 text-left">Publisher</th>
+                            <th class="py-3 px-6 text-center">Year</th>
+                            <th class="py-3 px-6 text-center">Rating</th>
+                            <th class="py-3 px-6 text-center">Price</th>
+                            <th class="py-3 px-6 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700 text-sm">
+                        @foreach (var book in Model)
+                        {
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">@book.Id</td>
+                                <td class="py-3 px-6 text-left">@book.Title</td>
+                                <td class="py-3 px-6 text-left">@book.Author</td>
+                                <td class="py-3 px-6 text-left">@book.Publisher</td>
+                                <td class="py-3 px-6 text-center">@book.PublicationYear</td>
+                                <td class="py-3 px-6 text-center">
+                                    @if (book.Rating.HasValue)
+                                    {
+                                        @string.Format("{0:0.0}", book.Rating)
+                                    }
+                                    else
+                                    {
+                                        <span class="text-gray-500">N/A</span>
+                                    }
+                                </td>
+                                <td class="py-3 px-6 text-center">$@string.Format("{0:0.00}", book.Price)</td>
+                                <td class="py-3 px-6 text-center">
+                                    <div class="flex justify-center space-x-2">
+                                        <a href="books/edit/@book.Id"  class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Edit</a>
+                                        <a href="books/delete/@book.Id" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </main>
+</div>

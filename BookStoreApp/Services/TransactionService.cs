@@ -46,10 +46,6 @@ namespace BookStoreApp.Services
 
         public async Task<List<Bag>> GetAllBagAsync(string Id)
         {
-            if (string.IsNullOrEmpty(Id))
-            {
-                throw new ArgumentNullException(Id, "Id is invalid");
-            }
             var bags = await _context.Bags.Include(b => b.Book).Where(b => b.UserId == Id).ToListAsync();
             return bags;
         }

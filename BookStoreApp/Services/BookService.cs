@@ -15,9 +15,25 @@ namespace BookStoreApp.Services
             (_context, _logger) = (context, logger);
         }
 
-        public async Task<List<Book>> GetAllBooksAsync()
+        public async Task<List<Book>> GetAllBooksAsync(int page, int pageSize)
         {
-            var books = await _context.Books.Where(b => b.IsDeleted == null).ToListAsync();
+            var books = await _context.Books.Where(b => b.IsDeleted == null).Skip((page -1) * pageSize).Take(pageSize).ToListAsync();
+            return books;
+        }
+
+        public async Task<BooksItem> GetAllBooksAsyncP(int page, int pageSize)
+        {
+            var books = await _context.Books.Where(b => b.IsDeleted == null).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var totalBooks = await _context.Books.Where(b => b.IsDeleted == null).CountAsync();
+            return new BooksItem { Books = books, TotalBooks = totalBooks };
+        }
+
+        public async Task<List<Book>> SearchBook(string query)
+        {
+            var books = await _context.Books.Where(b => (b.Title.Contains(query) ||
+                        b.Author.Contains(query) ||
+                        b.Summary.Contains(query)) && b.IsDeleted == null)
+            .ToListAsync();
             return books;
         }
 

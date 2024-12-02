@@ -15,12 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 //var client = new ElasticClient(settings);
 
 // Not Secure For Production
-var settings = new ConnectionSettings(new Uri("https://localhost:9200"))
-    .ServerCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => true);
+//var settings = new ConnectionSettings(new Uri("https://localhost:9200"))
+//    .ServerCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => true);
 
-var client = new ElasticClient(settings);
+//var client = new ElasticClient(settings);
 
-builder.Services.AddSingleton<IElasticClient>(client);
+//builder.Services.AddSingleton<IElasticClient>(client);
 
 
 // Configure database connection
@@ -54,19 +54,20 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IErrorService, ErrorService>();
 
 // Register Elasticsearch service
-builder.Services.AddScoped<ElasticsearchService>();
+//builder.Services.AddScoped<ElasticsearchService>();
 
 var app = builder.Build();
 
 
 // Ensure Elasticsearch indexing happens during app startup
-using (var scope = app.Services.CreateScope())
-{
-    var elasticsearchService = scope.ServiceProvider.GetRequiredService<ElasticsearchService>();
-    await elasticsearchService.IndexBooksAsync();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var elasticsearchService = scope.ServiceProvider.GetRequiredService<ElasticsearchService>();
+//    await elasticsearchService.IndexBooksAsync();
+//}
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
@@ -78,10 +79,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
-app.UseMiddleware<CartMiddleware>(); // Custom middleware
 app.UseRouting();
 app.UseAuthentication(); // Ensure Identity is configured
 app.UseAuthorization();
+app.UseMiddleware<CartMiddleware>(); // Custom middleware
 app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 
 // Konfigurasi routing untuk error pages

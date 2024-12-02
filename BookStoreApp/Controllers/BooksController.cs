@@ -9,80 +9,99 @@ using BookStoreApp.Models;
 using BookStoreApp.Services;
 using BookStoreApp.Controllers.Model;
 using Nest;
+using BookStoreApp.Filters;
 
 namespace BookStoreApp.Controllers
 {
     [Route("books")] // Base route for user-facing pages
+    [NotForAdmin]
     public class BooksController : Controller
     {
         private readonly IBookService _bookService;
         private readonly ILogger<BooksController> _logger;
         private readonly ITransactionService _transactionService;
-        private readonly IElasticClient _elasticClient;
+        private readonly IErrorService _errorService;
+        //private readonly IElasticClient _elasticClient;
 
-        public BooksController(IBookService bookService, ILogger<BooksController> logger, ITransactionService transactionService, IElasticClient elasticClient)
+        public BooksController(IBookService bookService, ILogger<BooksController> logger, ITransactionService transactionService, IErrorService errorService)
         {
             _bookService = bookService;
             _logger = logger;
             _transactionService = transactionService;
-            _elasticClient = elasticClient;
+            _errorService = errorService;
+            //_elasticClient = elasticClient;
         }
 
         // ----- User Routes -----
 
         // GET: /books
         [HttpGet("")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? null;
             try
             {
-                var books = await _bookService.GetAllBooksAsync();
-                TempData["alert"] = "This is books page";
-                return View(books);
+                var books = await _bookService.GetAllBooksAsyncP(page, pageSize);
+                if (!books.Books.Any())
+                {
+                    TempData["info"] = "The books still empty! Come again later!";
+                    return View(new Book());
+                }
+                var totalBooks = books.TotalBooks;
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPages = (int)Math.Ceiling((double)totalBooks / pageSize);
+                return View(books.Books);
             }
-            catch (Exception ex)
+            catch (Exception x)
             {
-                _logger.LogError(ex, "Error retrieving books.");
-                return View("Error");
+                _logger.LogError(x, "Error retrieving books.");
+                await _errorService.Error(500, x.Message, x.StackTrace);
+                return StatusCode(500);
             }
         }
 
         public IActionResult Search() => View();
 
         // Elasticsearch 
-        [HttpPost]
-        public async Task<IActionResult> Search(string query)
-        {
-            if (string.IsNullOrEmpty(query))
-            {
-                return View("Index", new List<Book>());
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> Search(string query)
+        //{
+        //    if (string.IsNullOrEmpty(query))
+        //    {
+        //        return View("Index", new List<Book>());
+        //    }
 
-            // Search in Elasticsearch
-            var searchResponse = await _elasticClient.SearchAsync<Book>(s => s
-                .Query(q => q
-                    .MultiMatch(m => m
-                        .Fields(f => f
-                            .Field(b => b.Title)
-                            .Field(b => b.Author)
-                            .Field(b => b.Summary))
-                        .Query(query)
-                    )
-                )
-            );
+        //    // Search in Elasticsearch
+        //    var searchResponse = await _elasticClient.SearchAsync<Book>(s => s
+        //        .Query(q => q
+        //            .MultiMatch(m => m
+        //                .Fields(f => f
+        //                    .Field(b => b.Title)
+        //                    .Field(b => b.Author)
+        //                    .Field(b => b.Summary))
+        //                .Query(query)
+        //            )
+        //        )
+        //    );
 
-            // Pass results to the view
-            var books = searchResponse.Documents.ToList();
-            return View("Index", books);
-        }
+        //    // Pass results to the view
+        //    var books = searchResponse.Documents.ToList();
+        //    return View("Index", books);
+        //}
 
         // GET: /books/product/{id}
         [HttpGet("Product/{id}")]
         public async Task<IActionResult> Product(int id)
         {
-            var book = await _bookService.GetOneBookAsync(id);
-            return book == null ? NotFound() : View(book);
+            try
+            {
+                var book = await _bookService.GetOneBookAsync(id);
+                return book == null ? NotFound() : View(book);
+            } catch(Exception x)
+            {
+                await _errorService.Error(500, x.Message, x.StackTrace);
+                return StatusCode(500);
+            }
         }
 
         [Authorize]
@@ -106,20 +125,26 @@ namespace BookStoreApp.Controllers
             try
             {
                 var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
                 var bag = new Bag
                 {
                     UserId = userId,
                     BookId = book.Id,
                     Quantity = 1
                 };
-                TempData["alert"] = "The book was successfully added to the cart.";
+                TempData["alert"] = "The book was added";
 
                 await _transactionService.AddBagItem(bag);
                 return RedirectToAction(nameof(Product), new { id = book.Id });
             }
-            catch (Exception ex)
+            catch (Exception x)
             {
-                TempData["error"] = "Cannot add the book to the bag, Please to try it later";
+                TempData["error"] = "Cannot add the book, Please to try again later";
+                await _errorService.Error(500, x.Message, x.StackTrace);
                 return RedirectToAction(nameof(Product), new { id = book.Id });
             }
 
@@ -130,27 +155,18 @@ namespace BookStoreApp.Controllers
         [HttpGet("bag")]
         public async Task<IActionResult> Bag()
         {
-            //var items = _transactionService.GetAllItems();
-            //var subtotal = items.Sum(item => item.Price * item.Qty);
-            //var tax = subtotal * 0.11m;
-            //var total = subtotal + tax;
-
-            //var bagViewModel = new BagViewModel
-            //{
-            //    TransactionItems = items,
-            //    Subtotal = subtotal,
-            //    Total = total,
-            //    Tax = tax
-            //};
-
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound();
+                return RedirectToAction("Login", "Account");
             }
             try
             {
                 var items = await _transactionService.GetAllBagAsync(userId);
+                if (!items.Any())
+                {
+                    throw new NullReferenceException("The bag is empty!");
+                }
 
                 decimal subtotal = items.Sum(item => item.Book.Price * (decimal)item.Quantity);
                 var tax = subtotal * 0.11m;
@@ -164,12 +180,15 @@ namespace BookStoreApp.Controllers
                     Total = total
                 };
                 return View(bagViewModel);
-            }catch (ArgumentNullException ex)
+            }catch (NullReferenceException x)
             {
-                _logger.LogInformation(ex.Message);
-                return View();
+                TempData["error"] = "Your Bag Is Still Empty! Let's get some book!";
+                return View(new BagViewModel());
+            }catch (Exception x)
+            {
+                await _errorService.Error(500, x.Message, x.StackTrace);
+                return StatusCode(500);
             }
-
         }
 
         [Authorize]
@@ -194,31 +213,64 @@ namespace BookStoreApp.Controllers
 
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
-            if (id != null && book == null || string.IsNullOrEmpty(userId)) return RedirectToAction(nameof(Index));
-
-            var items = await _transactionService.GetAllBagAsync(userId);
-            var bagViewModel = new BagViewModel
+            if (string.IsNullOrEmpty(userId))
             {
-                Bags = items,
-                Subtotal = Convert.ToDecimal(HttpContext.Session.GetString("subtotal") ?? "0"),
-                Total = Convert.ToDecimal(HttpContext.Session.GetString("total") ?? "0"),
-                Tax = Convert.ToDecimal(HttpContext.Session.GetString("tax") ?? "0")
-            };
+                TempData["error"] = "You must be logged in to proceed.";
+                return RedirectToAction("Login", "Account");
+            }
 
-            var paymentViewModel = new PaymentViewModel
+            if (id != null && book == null)
             {
-                BookId = id ?? Convert.ToInt32(HttpContext.Session.GetString("bookId")),
-                Book = book,
-                ContactResponse = new ContactResponse
+                TempData["error"] = "The selected book does not exist.";
+                return RedirectToAction("Index");
+            }
+
+
+            try
+            {
+                var items = await _transactionService.GetAllBagAsync(userId);
+                if (!items.Any())
                 {
-                    Name = HttpContext.Session.GetString("name") ?? "",
-                    Mobile = HttpContext.Session.GetString("mobile") ?? "",
-                    Address = HttpContext.Session.GetString("address") ?? ""
-                },
-                BagViewModel = bagViewModel
-            };
+                    throw new NullReferenceException("The bag is empty! let's get some books!");
+                }
 
-            return View(paymentViewModel);
+                decimal.TryParse(HttpContext.Session.GetString("subtotal"), out var subtotal);
+                decimal.TryParse(HttpContext.Session.GetString("total"), out var total);
+                decimal.TryParse(HttpContext.Session.GetString("tax"), out var tax);
+
+                var bagViewModel = new BagViewModel
+                {
+                    Bags = items,
+                    Subtotal = subtotal,
+                    Total = total,
+                    Tax = tax
+                };
+
+                var paymentViewModel = new PaymentViewModel
+                {
+                    BookId = id ?? Convert.ToInt32(HttpContext.Session.GetString("bookId")),
+                    Book = book,
+                    ContactResponse = new ContactResponse
+                    {
+                        Name = HttpContext.Session.GetString("name") ?? "",
+                        Mobile = HttpContext.Session.GetString("mobile") ?? "",
+                        Address = HttpContext.Session.GetString("address") ?? ""
+                    },
+                    BagViewModel = bagViewModel
+                };
+
+                return View(paymentViewModel);
+            }
+            catch (NullReferenceException x)
+            {
+                TempData["Error"] = x.Message;
+                return RedirectToAction("bag", "books");
+            }
+            catch (Exception x)
+            {
+                await _errorService.Error(500, x.Message, x.StackTrace);
+                return StatusCode(500);
+            }
         }
 
         // POST: /books/payment
@@ -228,7 +280,12 @@ namespace BookStoreApp.Controllers
         {
             try
             {
-                model.Book = await _bookService.GetOneBookAsync(model.BookId);
+                var book = await _bookService.GetOneBookAsync(model.BookId);
+                if (book == null)
+                {
+                    throw new NullReferenceException("Cannot applying discount, try again later.");
+                }
+                model.Book = book;
                 model.ContactResponse ??= new ContactResponse();
 
                 model.DiscountAmount = model.PromoCode switch
@@ -240,11 +297,16 @@ namespace BookStoreApp.Controllers
 
                 model.Book.Price -= model.DiscountAmount;
                 return View(model);
-            }
-            catch (Exception ex)
+            } 
+            catch (NullReferenceException x)
             {
-                _logger.LogError(ex, "Error processing payment.");
-                return View("Error");
+                TempData["error"] = x.Message;
+                return View(model);
+            }
+            catch (Exception x)
+            {
+                await _errorService.Error(500, x.Message, x.StackTrace);
+                return StatusCode(500);
             }
         }
 
@@ -272,8 +334,8 @@ namespace BookStoreApp.Controllers
             //}
             if (string.IsNullOrEmpty(userId))
             {
-                TempData["error"] = "Invalid Credential";
-                return RedirectToAction(nameof(Payment));
+                TempData["error"] = "You must be logged in to continue the payment";
+                return RedirectToAction("Login", "Account");
             }
 
             var transaction = new Transaction
@@ -290,10 +352,11 @@ namespace BookStoreApp.Controllers
             {
                 await _transactionService.CreateTransaction(transaction);
                 return RedirectToAction("ThankYou", "Order", new {Order = orderId});
-            } catch (Exception ex)
+            } catch (Exception x)
             {
                 TempData["error"] = "Cannot Make a Transaction";
-                return StatusCode(500);
+                await _errorService.Error(500, x.Message, x.StackTrace);
+                return View(model);
                 //return RedirectToAction("HandleError", "Errors");
             }
 
@@ -323,76 +386,76 @@ namespace BookStoreApp.Controllers
         //    }
         //}
 
-        // GET: /admin/books/create
-        [Authorize(Roles = "Admin")]
-        [HttpGet("/admin/books/create")]
-        public IActionResult Create() => View();
+        //// GET: /admin/books/create
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet("/admin/books/create")]
+        //public IActionResult Create() => View();
 
-        // POST: /admin/books/create
-        [Authorize(Roles = "Admin")]
-        [HttpPost("/admin/books/create")]
-        public async Task<IActionResult> Create(Book book)
-        {
-            if (!ModelState.IsValid) return View(book);
+        //// POST: /admin/books/create
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost("/admin/books/create")]
+        //public async Task<IActionResult> Create(Book book)
+        //{
+        //    if (!ModelState.IsValid) return View(book);
 
-            try
-            {
-                await _bookService.CreateBookAsync(book);
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error creating book.");
-                return View("Error");
-            }
-        }
+        //    try
+        //    {
+        //        await _bookService.CreateBookAsync(book);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error creating book.");
+        //        return View("Error");
+        //    }
+        //}
 
-        // GET: /admin/books/edit/{id}
-        [Authorize(Roles = "Admin")]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var book = await _bookService.GetOneBookAsync(id);
-            return book == null ? NotFound() : View(book);
-        }
+        //// GET: /admin/books/edit/{id}
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var book = await _bookService.GetOneBookAsync(id);
+        //    return book == null ? NotFound() : View(book);
+        //}
 
-        // POST: /admin/books/edit/{id}
-        [Authorize(Roles = "Admin")]
-        [HttpPost("{id}")]
-        public async Task<IActionResult> Edit(int id, Book book)
-        {
-            if (id != book.Id) return BadRequest();
+        //// POST: /admin/books/edit/{id}
+        //[Authorize(Roles = "Admin")]
+        //[HttpPost("{id}")]
+        //public async Task<IActionResult> Edit(int id, Book book)
+        //{
+        //    if (id != book.Id) return BadRequest();
 
-            //if (!ModelState.IsValid) return View(book);
+        //    //if (!ModelState.IsValid) return View(book);
 
-            try
-            {
-                await _bookService.EditBookAsync(id, book);
-                TempData["alert"] = "Book Changed Successfully";
-                return RedirectToAction("Index", "Admin");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error editing book.");
-                return View("Error");
-            }
-        }
+        //    try
+        //    {
+        //        await _bookService.EditBookAsync(id, book);
+        //        TempData["alert"] = "Book Changed Successfully";
+        //        return RedirectToAction("Index", "Admin");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error editing book.");
+        //        return View("Error");
+        //    }
+        //}
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet("delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            if (id == null) return BadRequest();
-            try
-            {
-                await _bookService.DeleteBookAsync(id);
-                TempData["alert"] = "Book Successfully deleted!";
-                return RedirectToAction("Index", "Admin");
-            } catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error deleting book.");
-                return View("Error");
-            }
-        }
+        //[Authorize(Roles = "Admin")]
+        //[HttpGet("delete/{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    if (id == null) return BadRequest();
+        //    try
+        //    {
+        //        await _bookService.DeleteBookAsync(id);
+        //        TempData["alert"] = "Book Successfully deleted!";
+        //        return RedirectToAction("Index", "Admin");
+        //    } catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error deleting book.");
+        //        return View("Error");
+        //    }
+        //}
     }
 }

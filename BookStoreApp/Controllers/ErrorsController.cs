@@ -5,6 +5,10 @@ public class ErrorsController : Controller
     [Route("Errors/{statusCode}")]
     public IActionResult HandleError(int statusCode)
     {
+        if (statusCode == 400)
+        {
+            return View("400");
+        }
         if (statusCode == 404)
         {
             return View("404");
